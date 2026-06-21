@@ -1,0 +1,44 @@
+==========================================
+  SO DO CAU TRUC - DU AN vn-crypto-pulse
+==========================================
+
+vn-crypto-pulse/
+|
+|-- app/
+|   |-- api/
+|   |   `-- news/
+|   |       `-- route.ts          <- endpoint lay tin (gate MPP 402)
+|   |
+|   |-- openapi.json/             <- THU MUC (khong phai file)
+|   |   `-- route.ts              <- discovery document
+|   |
+|   |-- llms.txt/                 <- THU MUC (khong phai file)
+|   |   `-- route.ts              <- tai lieu cho agent
+|   |
+|   |-- icon.svg                  <- favicon
+|   |-- layout.tsx
+|   `-- page.tsx
+|
+|-- lib/
+|   |-- config.ts                 <- mang, gia, vi nhan tien
+|   |-- news.ts                   <- doc RSS bao VN, loc tin crypto
+|   `-- translate.ts              <- Groq dich + tom tat sang tieng Anh
+|
+|-- package.json
+|-- tsconfig.json
+|-- next.config.js
+|-- .env.example
+|-- .gitignore
+`-- README.md
+
+LUU Y: co 3 file ten "route.ts" o 3 noi khac nhau (news, openapi.json, llms.txt).
+"openapi.json" va "llms.txt" la THU MUC, ben trong moi cai co route.ts.
+
+CHAY:
+  npm install
+  copy .env.example .env   (dien RECIPIENT_ADDRESS + GROQ_API_KEY)
+  npm run dev
+KIEM TRA:
+  http://localhost:3000/openapi.json  -> JSON
+  http://localhost:3000/llms.txt      -> text
+==========================================
