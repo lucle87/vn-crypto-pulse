@@ -50,5 +50,15 @@ export const RECIPIENT_ADDRESS = (process.env.NEXT_PUBLIC_RECIPIENT_ADDRESS ||
 
 export const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
 
+// Host (khong co https://) de ep realm trong challenge MPP -> khop domain chinh,
+// khong de mppx tu lay host tu request (Vercel dua URL deployment co hash).
+export const REALM_HOST = (() => {
+  try {
+    return new URL(BASE_URL).host;
+  } catch {
+    return "localhost:3000";
+  }
+})();
+
 export const MPP_SECRET_KEY =
   process.env.MPP_SECRET_KEY || "dev-secret-change-me-in-production-please-32b";

@@ -8,6 +8,7 @@ import {
   PRICE_AMOUNT,
   RECIPIENT_ADDRESS,
   MPP_SECRET_KEY,
+  REALM_HOST,
 } from "@/lib/config";
 import { fetchVietnamCryptoNews } from "@/lib/news";
 import { translateAndSummarize } from "@/lib/translate";
@@ -15,6 +16,8 @@ import { translateAndSummarize } from "@/lib/translate";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+// realm ep bang domain chinh (tu BASE_URL) de khop host khi dang ky mppscan.
+// Khong de mppx tu lay host tu request header (Vercel dua URL deployment co hash).
 const mppx = Mppx.create({
   methods: [
     tempo({
@@ -24,6 +27,7 @@ const mppx = Mppx.create({
     }),
   ],
   secretKey: MPP_SECRET_KEY,
+  realm: REALM_HOST,
 });
 
 // Ham lay tin + dich, dung chung cho ca preview va paid.
