@@ -72,6 +72,8 @@ export async function translateAndSummarize(
   ].join("\n");
 
   let parsed: any = null;
+  const ctrl = new AbortController();
+  const tt = setTimeout(() => ctrl.abort(), 9000);
   try {
     const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
@@ -79,6 +81,7 @@ export async function translateAndSummarize(
         Authorization: `Bearer ${groqKey}`,
         "Content-Type": "application/json",
       },
+      signal: ctrl.signal,
       body: JSON.stringify({
         model: "llama-3.3-70b-versatile",
         messages: [{ role: "user", content: prompt }],
@@ -94,6 +97,8 @@ export async function translateAndSummarize(
     }
   } catch {
     parsed = null;
+  } finally {
+    clearTimeout(tt);
   }
 
   // Neu Groq loi -> fallback ban tho.

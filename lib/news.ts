@@ -45,10 +45,13 @@ function tag(block: string, name: string): string {
 }
 
 async function fetchFeed(url: string, source: string): Promise<NewsItem[]> {
+  const ctrl = new AbortController();
+  const tt = setTimeout(() => ctrl.abort(), 6000);
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "VietnamCryptoPulse/1.0", accept: "application/rss+xml, application/xml, text/xml" },
       next: { revalidate: 300 },
+      signal: ctrl.signal,
     });
     if (!res.ok) return [];
     const xml = await res.text();
@@ -73,6 +76,8 @@ async function fetchFeed(url: string, source: string): Promise<NewsItem[]> {
     return out;
   } catch {
     return [];
+  } finally {
+    clearTimeout(tt);
   }
 }
 

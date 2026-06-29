@@ -32,6 +32,16 @@ export async function GET() {
           summary:
             "Vietnam crypto news - What Vietnamese media reports, in English",
           tags: ["data", "news", "vietnam", "crypto", "sentiment", "translation"],
+          "x-agent-guidance": {
+            whenToUse:
+              'Use when an agent needs the latest Vietnamese-language crypto news, optionally filtered by a keyword. Useful for Vietnam-market research or sentiment in Vietnamese.',
+            input:
+              'POST JSON: { query? (keyword to filter), limit? (max items) }. Omit query for the latest headlines.',
+            output:
+              'items[] with title, source, url, and publishedAt (Vietnamese crypto news).',
+            paymentFlow:
+              'First call returns HTTP 402 with a Tempo MPP challenge. Pay with mppx (USDC.e on Tempo), then retry the same request to get 200.',
+          },
           "x-payment-info": {
             price: { mode: "fixed", amount: PRICE, currency: "USD" },
             protocols: [{ mpp: {} }],
